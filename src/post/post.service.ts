@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import {
   Post,
+  User,
   Prisma,
 } from '@prisma/client';
 
@@ -13,6 +14,12 @@ export class PostService {
     return this.prisma.post.findUnique({
       where: postWhereUniqueInput,
     });
+  }
+
+  async postAuthor(postWhereUniqueInput: Prisma.PostWhereUniqueInput): Promise<User | null> {
+    return this.prisma.post.findUnique({
+      where: postWhereUniqueInput,
+    }).author();
   }
 
   async posts(params: {

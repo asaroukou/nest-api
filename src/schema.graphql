@@ -1,0 +1,67 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  setPublishState(state: Boolean!, id: Float!): Post!
+  setArchivedState(state: Boolean!, id: Float!): Post!
+  createPost(authorEmail: String!, data: PostInput!): Post!
+  updatePost(authorEmail: String!, data: PostInput!, id: Float!): Post!
+  deletePost(id: Float!): Post
+}
+
+type Post {
+  id: Int!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  title: String!
+  slug: String!
+  imageUrl: String
+  content: String
+  published: Boolean
+  archived: Boolean
+  author: User
+}
+
+input PostInput {
+  title: String!
+  imageUrl: String
+  published: Boolean
+  content: String
+}
+
+input PostOrderByUpdatedAtInput {
+  updatedAt: SortOrder!
+}
+
+type Query {
+  allUsers: [User!]
+  allPost(orderBy: PostOrderByUpdatedAtInput, take: Float, skip: Float): [Post!]!
+  postById(id: Float!): Post
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
+
+type User {
+  id: Int!
+  email: String!
+  imageUrl: String
+  username: String
+  posts: [Post!]
+}
+
+input UserCreateInput {
+  email: String!
+  imageUrl: String!
+  username: String
+  posts: [PostInput!]
+}
